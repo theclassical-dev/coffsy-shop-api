@@ -35,8 +35,9 @@ class OrderController extends Controller
         ]);
 
         $name = $request->input('firstName').' '.$request->input('lastName');
+        // user fullname  
         $n = auth()->user()->firstName.' '.auth()->user()->lastName;
-
+        //create order
         $order = Order::create([
             'name' => $n,
             'coff_id' => auth()->user()->coff_id,
@@ -48,7 +49,7 @@ class OrderController extends Controller
             'pay_confirmation' => $request->input('pay_confirmation'),
             'status' => $request->input('status')
         ]);
-
+        //check if request is successful 
         if($roder){
             return response()->json([
                 'message' => 'Order Successful Created, Processing...',
