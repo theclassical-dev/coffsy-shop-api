@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -47,7 +48,7 @@ class AdminController extends Controller
         ]);
 
         // check admin email
-        $admin = Admin::where('email', $data['email'])->first();
+        $admin = Admin::where('coff_id', $data['email'])->first();
 
         if(!$admin || !Hash::check($data['password'], $admin->password)){
             return response(['message' => 'not found']);

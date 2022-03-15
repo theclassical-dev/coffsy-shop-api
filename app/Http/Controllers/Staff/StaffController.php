@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Staff;
+use Illuminate\Support\Facades\Hash;
+
 class StaffController extends Controller
 {
     public function register(Request $request){
@@ -46,7 +48,7 @@ class StaffController extends Controller
 
         //check email
         // $staff =  Staff::where('coff_id', $data['email'])->first();
-        $staff =  Staff::where('email', $data['email'])->first();
+        $staff =  Staff::where('coff_id', $data['email'])->first();
 
         //check password
         if(!$staff || !Hash::check($data['password'], $staff->password)){
