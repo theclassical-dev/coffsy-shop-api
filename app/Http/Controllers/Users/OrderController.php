@@ -30,8 +30,7 @@ class OrderController extends Controller
             'address' => 'required',
             'promo_code' => 'nullable',
             'pay_type' => 'required',
-            'pay_confirmation' => 'required',
-            'status' => 'required',
+            'price' => 'required',
         ]);
 
         $name = $request->input('firstName').' '.$request->input('lastName');
@@ -46,11 +45,12 @@ class OrderController extends Controller
             'address' => $request->input('address'),
             'promo_code' => $request->input('promo_code'),
             'pay_type' => $request->input('pay_type'),
-            'pay_confirmation' => $request->input('pay_confirmation'),
-            'status' => $request->input('status')
+            'price' => $request->input('price'),
+            'pay_confirmation' => 'Pending...',
+            'status' => 'Processing..'
         ]);
         //check if request is successful 
-        if($roder){
+        if($order){
             return response()->json([
                 'message' => 'Order Successful Created, Processing...',
                 'data' => $order

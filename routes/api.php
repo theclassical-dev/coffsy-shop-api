@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\AuthController;
 use App\Http\Controllers\Users\CustomerController;
+use App\Http\Controllers\Users\OrderController;
 use App\Http\Controllers\Admin\BossController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Staff\MainController;
@@ -34,6 +35,8 @@ Route::post('/staff/login', [StaffController::class, 'login']);
 //users routes
 Route::group(['middleware' => ['auth:user'], 'prefix' => 'user/v1', 'namespace' => 'Users'], function () {
     Route::get('/test',[CustomerController::class, 'index']);
+    Route::get('/my-orders',[OrderController::class, 'index']);
+    Route::post('/place-order',[OrderController::class, 'order']);
     Route::get('/logout',[CustomerController::class, 'logout']);
     
 });

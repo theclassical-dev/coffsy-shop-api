@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('address');
             $table->string('promo_code');
             $table->string('pay_type');
+            $table->string('price');
             $table->string('pay_confirmation');
             $table->string('status');
             $table->timestamps();
