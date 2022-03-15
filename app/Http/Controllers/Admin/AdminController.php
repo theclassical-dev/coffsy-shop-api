@@ -63,4 +63,13 @@ class AdminController extends Controller
         return response($response, 201);
 
     }
+
+    public function logout(Request $request){
+
+        auth()->guard('admin')->user()->tokens()->delete();
+
+        return response()->json([
+            'message' => 'Log out'
+        ]);
+    }
 }
