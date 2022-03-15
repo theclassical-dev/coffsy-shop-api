@@ -34,6 +34,8 @@ Route::post('/staff/login', [StaffController::class, 'login']);
 //users routes
 Route::group(['middleware' => ['auth:user'], 'prefix' => 'user/v1', 'namespace' => 'Users'], function () {
     Route::get('/test',[CustomerController::class, 'index']);
+    Route::get('/logout',[CustomerController::class, 'logout']);
+    
 });
 //staff routes
 Route::group(['middleware' => ['auth:staff'], 'prefix' => 'staff/v1', 'namespace' => 'Staff'], function () {
@@ -43,4 +45,6 @@ Route::group(['middleware' => ['auth:staff'], 'prefix' => 'staff/v1', 'namespace
 //admin routes
 Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin/v1', 'namespace' => 'Admin'], function () {
     Route::get('/test',[BossController::class, 'index']);
+    Route::post('/logout',[AdminController::class, 'logout']);
+
 });
