@@ -10,7 +10,7 @@ use App\Models\Order;
 
 class OrderController extends Controller
 {
-    public function index(Request $request){
+    public function index(){
 
        $order =  auth()->user()->order;
         if(!$order->isEmpty()){
@@ -64,10 +64,7 @@ class OrderController extends Controller
     }
 
     public function cancelOrder($id) {
-        // $request->validate([
-        //     'id' => 'required',
-        // ]);
-
+    
         $order = Order::find($id);
 
         if($order){

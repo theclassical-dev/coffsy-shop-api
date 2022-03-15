@@ -17,7 +17,7 @@ class MainController extends Controller
     }
 
     public function allOrders(Request $request){
-        
+
         $orders = Order::all();
 
         if($orders){
@@ -27,5 +27,22 @@ class MainController extends Controller
         }
 
         return response()->json(['message' => 'Orders not found']);
+    }
+
+    public function confirmPayment(Request $request, $id){
+        $request->validate([
+            'id' => 'required',
+            'pay_confirmation' => 'required',
+        ]);
+        $order = Order::find($id);
+
+        if($order){
+            $ind['pay_confirmation'] = $request->get('pay_confirmation');
+
+            $order->update($ind);
+
+            return response()->json(['message' => 'Order payment successful confirmed']);
+            
+        }
     }
 }
