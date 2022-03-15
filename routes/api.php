@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth:user'], 'prefix' => 'user/v1', 'namespace' 
     Route::get('/test',[CustomerController::class, 'index']);
     Route::get('/my-orders',[OrderController::class, 'index']);
     Route::post('/place-order',[OrderController::class, 'order']);
+    Route::delete('/cancel-order/{id}',[OrderController::class, 'cancelOrder']);
     Route::get('/logout',[CustomerController::class, 'logout']);
     
 });

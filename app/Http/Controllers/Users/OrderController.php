@@ -62,4 +62,19 @@ class OrderController extends Controller
             'message' => 'Order Failed'
         ]);
     }
+
+    public function cancelOrder($id) {
+        // $request->validate([
+        //     'id' => 'required',
+        // ]);
+
+        $order = Order::find($id);
+
+        if($order){
+            $order->delete($order);
+            return response()->json(['message' => 'Order successfully cancelled.']);
+        }
+
+        return response()->json(['message' => 'no order available.']);
+    }
 }
