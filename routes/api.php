@@ -42,8 +42,11 @@ Route::group(['middleware' => ['auth:user'], 'prefix' => 'user/v1', 'namespace' 
 });
 //staff routes
 Route::group(['middleware' => ['auth:staff'], 'prefix' => 'staff/v1', 'namespace' => 'Staff'], function () {
+    Route::get('/all-orders',[MainController::class, 'allOrders']);
     Route::get('/test',[MainController::class, 'index']);
     Route::post('/logout',[StaffController::class, 'logout']);
+    
+    
 });
 //admin routes
 Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin/v1', 'namespace' => 'Admin'], function () {
