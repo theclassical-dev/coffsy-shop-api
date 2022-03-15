@@ -21,18 +21,26 @@ use App\Http\Controllers\Staff\StaffController;
 |
 */
 
+// registreation route
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/admin/register', [AdminController::class, 'register']);
 Route::post('/staff/register', [StaffController::class, 'register']);
 
+// login routes
+Route::post('/admin/login', [AdminController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/staff/login', [StaffController::class, 'login']);
+
+//users routes
 Route::group(['middleware' => ['auth:user'], 'prefix' => 'user/v1', 'namespace' => 'Users'], function () {
     Route::get('/test',[CustomerController::class, 'index']);
 });
-
+//staff routes
 Route::group(['middleware' => ['auth:staff'], 'prefix' => 'staff/v1', 'namespace' => 'Staff'], function () {
     Route::get('/test',[MainController::class, 'index']);
+    Route::post('/logout',[StaffController::class, 'logout']);
 });
-
+//admin routes
 Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin/v1', 'namespace' => 'Admin'], function () {
     Route::get('/test',[BossController::class, 'index']);
 });
