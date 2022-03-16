@@ -44,8 +44,8 @@ Route::group(['middleware' => ['auth:user'], 'prefix' => 'user/v1', 'namespace' 
 //staff routes
 Route::group(['middleware' => ['auth:staff'], 'prefix' => 'staff/v1', 'namespace' => 'Staff'], function () {
     Route::get('/all-orders',[MainController::class, 'allOrders']);
-    Route::post('/confirm-payment/{id}',[MainController::class, 'confirmPayment']);
-    Route::post('/order-status/{id}',[MainController::class, 'orderStatus']);
+    Route::put('/confirm-payment/{id}',[MainController::class, 'confirmPayment']);
+    Route::put('/order-status/{id}',[MainController::class, 'orderStatus']);
     Route::get('/test',[MainController::class, 'index']);
     Route::post('/add-tea',[MainController::class, 'createTeaType']);
     Route::post('/logout',[StaffController::class, 'logout']);

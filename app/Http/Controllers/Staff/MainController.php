@@ -31,20 +31,20 @@ class MainController extends Controller
     }
 
     public function confirmPayment(Request $request, $id){
-        $request->validate([
-            'id' => 'required',
-            'pay_confirmation' => 'required',
-        ]);
+
         $order = Order::find($id);
 
         if($order){
-            $ind['pay_confirmation'] = $request->get('pay_confirmation');
+            $ind['pay_confirmation'] = ucwords('confirmed');
 
             $order->update($ind);
 
             return response()->json(['message' => 'Order payment successful confirmed']);
             
         }
+
+        return response()->json(['message' => 'Error']);
+
     }
 
     public function createTeaType(Request $request) {
