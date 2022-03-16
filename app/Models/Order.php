@@ -12,7 +12,8 @@ class Order extends Model
     protected $fillable = [
         'name', 'coff_id','tea_type', 
         'description', 'address', 'promo_code',
-        'pay_type','price','pay_confirmation','status'
+        'pay_type','price','pay_confirmation','status',
+        'pay_confirm_dateTime','delivered_dateTime'
     ];
 
     public function user(){

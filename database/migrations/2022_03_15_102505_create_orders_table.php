@@ -25,6 +25,8 @@ class CreateOrdersTable extends Migration
             $table->string('price');
             $table->string('pay_confirmation');
             $table->string('status');
+            $table->string('pay_confirm_dateTime')->default('null');
+            $table->string('delivered_dateTime')->default('null');
             $table->timestamps();
         });
     }

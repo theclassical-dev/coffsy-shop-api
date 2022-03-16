@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Staff;
 use App\Models\Tea;
+use Carbon\Carbon;
 use DB;
 use Auth;
 
@@ -30,16 +31,39 @@ class MainController extends Controller
         return response()->json(['message' => 'Orders not found']);
     }
 
-    public function confirmPayment(Request $request, $id){
+    public function confirmPayment($id){
 
         $order = Order::find($id);
 
         if($order){
             $ind['pay_confirmation'] = ucwords('confirmed');
+            $ind['pay_confirm_dateTime'] = Carbon::now('WAT')->format('l jS \of F Y h:i:s');
+
+            // Order::create([
+            //     'pay_confirm_dateTime' => Carbon::now(),
+            // ]);
 
             $order->update($ind);
 
             return response()->json(['message' => 'Order payment successful confirmed']);
+            
+        }
+
+        return response()->json(['message' => 'Error']);
+
+    }
+
+    public function orderStatus($id){
+
+        $status = Order::find($id);
+
+        if($status){
+            $ind['status'] = ucwords('delivered');
+            $ind['delivered_dateTime'] = Carbon::now('WAT')->format('l jS \of F Y h:i:s');
+
+            $status->update($ind);
+
+            return response()->json(['message' => 'Order Delivered Successfully']);
             
         }
 
