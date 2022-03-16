@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth:staff'], 'prefix' => 'staff/v1', 'namespace
     Route::post('/confirm-payment/{id}',[MainController::class, 'confirmPayment']);
     Route::post('/order-status/{id}',[MainController::class, 'orderStatus']);
     Route::get('/test',[MainController::class, 'index']);
+    Route::post('/add-tea',[MainController::class, 'createTeaType']);
     Route::post('/logout',[StaffController::class, 'logout']);
     
     

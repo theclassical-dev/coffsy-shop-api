@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Staff;
+use App\Models\Tea;
 use DB;
 use Auth;
 
@@ -44,5 +45,33 @@ class MainController extends Controller
             return response()->json(['message' => 'Order payment successful confirmed']);
             
         }
+    }
+
+    public function createTeaType(Request $request) {
+
+        $request->validate([
+            'name' => 'required',
+            'abbreviation' => 'required',
+            'size' => 'required',
+            'price' => 'required',
+        ]);
+
+        $tea = Tea::create([
+            'name' => $request->input('name'),
+            'abbreviation' => $request->input('abbreviation'),
+            'size' => $request->input('size'),
+            'price' => $request->input('price')
+        ]);
+
+        if($tea){
+            return response()->json([
+                'message' => 'Successfully Created',
+                'data' => $tea
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Internal Error',
+        ]);
     }
 }

@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Tea extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name','abbreviation','size','price'];
 }

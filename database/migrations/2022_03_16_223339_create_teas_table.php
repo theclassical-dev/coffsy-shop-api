@@ -15,6 +15,10 @@ class CreateTeasTable extends Migration
     {
         Schema::create('teas', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('abbreviation');
+            $table->string('size');
+            $table->string('price');
             $table->timestamps();
         });
     }
