@@ -105,7 +105,7 @@ class MainController extends Controller
 
         if($tea){
             $ind['name'] = ucwords($request->input('name'));
-            $ind['abbreviation'] = ucwords($request->input('abbreviation'));
+            $ind['abbreviation'] = strtoupper($request->input('abbreviation'));
             $ind['size'] = ucwords($request->input('size'));
             $ind['price'] = $request->input('price');
 
@@ -116,5 +116,18 @@ class MainController extends Controller
 
         return response()->json(['message' => 'Record Not Found']);
 
+    }
+
+    public function deleteTeaType($id){
+
+        $tea = Tea::find($id);
+        if($tea){
+
+            $tea->delete($tea);
+            return response()->json(['message' => 'Record Successfully Deleted']);
+            
+        }
+
+        return response()->json(['message' => 'Record Not Found']);
     }
 }

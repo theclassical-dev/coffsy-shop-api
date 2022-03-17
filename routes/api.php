@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth:staff'], 'prefix' => 'staff/v1', 'namespace
     Route::get('/test',[MainController::class, 'index']);
     Route::post('/add-tea',[MainController::class, 'createTeaType']);
     Route::put('/update-tea/{id}',[MainController::class, 'updateTeaType']);
+    Route::delete('/delete-tea/{id}',[MainController::class, 'deleteTeaType']);
     Route::post('/logout',[StaffController::class, 'logout']);
     
     
