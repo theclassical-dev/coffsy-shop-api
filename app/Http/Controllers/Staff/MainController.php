@@ -10,6 +10,7 @@ use App\Models\Staff;
 use App\Models\Tea;
 use App\Models\BankDetail;
 use Carbon\Carbon;
+use Validator;
 use DB;
 use Auth;
 
@@ -134,27 +135,40 @@ class MainController extends Controller
 
     public function bankDetail(Request $request){
         $request->validate([
-            'coff_id' => 'required',
-            'name' => 'required',
-            'acct_name' => 'required',
-            'acct_number' => 'required',
+            'coff_id' => 'required|unique:bank_details,coff_id',
+            'name' => 'required|string|unique:bank_details',
+            'acct_name' => 'required|string|unique:bank_details',
+            'acct_number' => 'required|integer|unique:bank_details',
             'bank' => 'required',
             'acct_type' => 'required',
         ]);
 
+        //check for coff_id && name
+        
+        $staff = Staff::where('coff_id', $request->coff_id)->first();
+        if(!$staff || !$staff->name){
+            return response()->json(['message' => 'Staff ID No. or Name Provided Not Found']);
+            exit();
+        }
+
         $bank = BankDetail::create([
             'coff_id' => $request->input('coff_id'),
-            'name' => uwords($request->input('name')),
-            'acct_name' => uwords($request->input('acct_name')),
+            'name' => ucwords($request->input('name')),
+            'acct_name' => ucwords($request->input('acct_name')),
             'acct_number' => $request->input('acct_number'),
-            'bank' => uwords($request->input('bank')),
-            'acct_type' => uwords($request->input('acct_type'))
+            'bank' => ucwords($request->input('bank')),
+            'acct_type' => ucwords($request->input('acct_type'))
         ]);
 
+
         if($bank) {
-            return response()->json(['message' => 'Bank Record Successfully Added']);
+            return response()->json([
+                'message' => 'Bank Record Successfully Added',
+                'bank' => $bank
+            ]);
         }
         return response()->json(['message' => 'Error']);
+
     }
 
     public function updateBankDetail(Request $request, $id){
@@ -169,8 +183,9 @@ class MainController extends Controller
         ]);
 
         $bank = BankDetail::find($id);
-        if($bank){
 
+        if($bank){
+        
             $bank->update($request->uwords(all()));
 
             return response()->json(['message' => 'Record updated successfully']);

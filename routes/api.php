@@ -43,13 +43,22 @@ Route::group(['middleware' => ['auth:user'], 'prefix' => 'user/v1', 'namespace' 
 });
 //staff routes
 Route::group(['middleware' => ['auth:staff'], 'prefix' => 'staff/v1', 'namespace' => 'Staff'], function () {
+    //
     Route::get('/all-orders',[MainController::class, 'allOrders']);
+    //
     Route::put('/confirm-payment/{id}',[MainController::class, 'confirmPayment']);
     Route::put('/order-status/{id}',[MainController::class, 'orderStatus']);
+    //
     Route::get('/test',[MainController::class, 'index']);
+    //
     Route::post('/add-tea',[MainController::class, 'createTeaType']);
     Route::put('/update-tea/{id}',[MainController::class, 'updateTeaType']);
     Route::delete('/delete-tea/{id}',[MainController::class, 'deleteTeaType']);
+    //
+    Route::post('/add-staff-bank-details',[MainController::class, 'bankDetail']);
+    Route::put('/update-staff-bank-details/{id}',[MainController::class, 'updateBankDetail']);
+    Route::delete('/delete-staff-bank-details/{id}',[MainController::class, 'deleteBankDetail']);
+
     Route::post('/logout',[StaffController::class, 'logout']);
     
     
