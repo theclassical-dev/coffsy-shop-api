@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth:staff'], 'prefix' => 'staff/v1', 'namespace
     Route::put('/order-status/{id}',[MainController::class, 'orderStatus']);
     Route::get('/test',[MainController::class, 'index']);
     Route::post('/add-tea',[MainController::class, 'createTeaType']);
+    Route::put('/update-tea/{id}',[MainController::class, 'updateTeaType']);
     Route::post('/logout',[StaffController::class, 'logout']);
     
     

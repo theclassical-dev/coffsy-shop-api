@@ -98,4 +98,23 @@ class MainController extends Controller
             'message' => 'Internal Error',
         ]);
     }
+
+    public function updateTeaType(Request $request, $id){
+
+        $tea = Tea::find($id);
+
+        if($tea){
+            $ind['name'] = ucwords($request->input('name'));
+            $ind['abbreviation'] = ucwords($request->input('abbreviation'));
+            $ind['size'] = ucwords($request->input('size'));
+            $ind['price'] = $request->input('price');
+
+            $tea->update($ind);
+
+            return response()->json(['message' => 'Successfully Updated']);
+        }
+
+        return response()->json(['message' => 'Record Not Found']);
+
+    }
 }

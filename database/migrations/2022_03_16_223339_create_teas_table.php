@@ -18,7 +18,7 @@ class CreateTeasTable extends Migration
             $table->string('name');
             $table->string('abbreviation');
             $table->string('size');
-            $table->string('price');
+            $table->float('price');
             $table->timestamps();
         });
     }
