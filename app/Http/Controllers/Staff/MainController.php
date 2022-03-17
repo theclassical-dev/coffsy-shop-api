@@ -177,4 +177,15 @@ class MainController extends Controller
         }
             return response()->json(['message' => 'Error']);
     }
+
+    public function deleteBankDetail($id){
+        
+        $bank = BankDetail::find($id);
+        if($bank){
+
+            $bank->delete($bank);
+            return response()->json(['message' => 'Record Successfully deleted']);
+        }
+            return response()->json(['message' => 'Error']);
+    }
 }
