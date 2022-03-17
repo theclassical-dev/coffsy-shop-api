@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Staff;
 use App\Models\Tea;
+use App\Models\BankDetail;
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -129,5 +130,30 @@ class MainController extends Controller
         }
 
         return response()->json(['message' => 'Record Not Found']);
+    }
+
+    public function BankDetail(Request $request){
+        $request->validate([
+            'coff_id' => 'required',
+            'name' => 'required',
+            'acct_name' => 'required',
+            'acct_number' => 'required',
+            'bank' => 'required',
+            'acct_type' => 'required',
+        ]);
+
+        $bank = BankDetail::create([
+            'coff_id' => $request->input('coff_id'),
+            'name' => uwords($request->input('name')),
+            'acct_name' => uwords($request->input('acct_name')),
+            'acct_number' => $request->input('acct_number'),
+            'bank' => uwords($request->input('bank')),
+            'acct_type' => uwords($request->input('acct_type'))
+        ]);
+
+        if($bank) {
+            return response()->json(['message' => 'Bank Record Successfully Added']);
+        }
+        return response()->json(['message' => 'Error']);
     }
 }
