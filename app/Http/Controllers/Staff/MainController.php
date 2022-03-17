@@ -132,7 +132,7 @@ class MainController extends Controller
         return response()->json(['message' => 'Record Not Found']);
     }
 
-    public function BankDetail(Request $request){
+    public function bankDetail(Request $request){
         $request->validate([
             'coff_id' => 'required',
             'name' => 'required',
@@ -155,5 +155,26 @@ class MainController extends Controller
             return response()->json(['message' => 'Bank Record Successfully Added']);
         }
         return response()->json(['message' => 'Error']);
+    }
+
+    public function updateBankDetail(Request $request, $id){
+
+        $request->validate([
+            'coff_id' => 'required',
+            'name' => 'required',
+            'acct_name' => 'required',
+            'acct_number' => 'required',
+            'bank' => 'required',
+            'acct_type' => 'required',
+        ]);
+
+        $bank = BankDetail::find($id);
+        if($bank){
+
+            $bank->update($request->uwords(all()));
+
+            return response()->json(['message' => 'Record updated successfully']);
+        }
+            return response()->json(['message' => 'Error']);
     }
 }
