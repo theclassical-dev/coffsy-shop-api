@@ -144,7 +144,7 @@ class MainController extends Controller
         ]);
 
         //check for coff_id && name
-        
+
         $staff = Staff::where('coff_id', $request->coff_id)->first();
         if(!$staff || !$staff->name){
             return response()->json(['message' => 'Staff ID No. or Name Provided Not Found']);
@@ -164,7 +164,7 @@ class MainController extends Controller
         if($bank) {
             return response()->json([
                 'message' => 'Bank Record Successfully Added',
-                'bank' => $bank
+                'data' => $bank
             ]);
         }
         return response()->json(['message' => 'Error']);
@@ -186,11 +186,19 @@ class MainController extends Controller
 
         if($bank){
         
-            $bank->update($request->uwords(all()));
+            $bank->update([
+                'acct_name' => ucwords($request->get('acct_name')),
+                'acct_number' => $request->get('acct_number'),
+                'bank' => ucwords($request->get('bank')),
+                'acct_type' => ucwords($request->get('acct_type')),
+            ]);
 
-            return response()->json(['message' => 'Record updated successfully']);
+            return response()->json([
+                'message' => 'Record updated successfully',
+                'data' => $bank
+            ]);
         }
-            return response()->json(['message' => 'Error']);
+            return response()->json(['message' => 'Record not Found']);
     }
 
     public function deleteBankDetail($id){
