@@ -33,7 +33,7 @@ class ReportController extends Controller
         ]);
 
         if($report){
-            return response()->json(['message' =>'Report Successfully Created']);
+            return response()->json(['message' =>'Report Successfully Submmitted']);
         }
         return response()->json(['message' =>'Error']);
 
@@ -86,6 +86,34 @@ class ReportController extends Controller
 
         if($report){
             return response()->json(['message' =>'Monthly Report Successfully Submitted']);
+        }
+            return response()->json(['message' =>'Error']);
+    }
+
+    public function YearlyReport(Request $request){
+        
+        $request->validate([
+            'year' => 'required|unique:yearly_reports, month',
+        ]);
+
+        // sum of all the daily reports
+        $d = MonthlyReport::sum('delivered');
+        $cash = MonthlyReport::sum('cash');
+        $transfer = MonthlyReport::sum('transfer');
+        $total = MonthlyReport::sum('total');
+
+
+        $report = YearlyReport::create([
+            'delivered' => $d,
+            'cash' => $cash,
+            'trasfer' => $transfer,
+            'total' => $total,
+            'year' => $request->input('year'),
+            'submittedDate' => Carbon::now('WAT')->format('l jS \of F Y h:i:s')
+        ]);
+
+        if($report){
+            return response()->json(['message' =>'Yearly Report Successfully Submitted']);
         }
             return response()->json(['message' =>'Error']);
     }
