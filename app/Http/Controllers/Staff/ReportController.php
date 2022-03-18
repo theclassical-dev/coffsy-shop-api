@@ -43,6 +43,7 @@ class ReportController extends Controller
     //update daily report
     public function updateReport(Request $request, $id){
         $report = DailyReport::find($id);
+        
         if($report){
             $report->update($request->all());
             return response()->json([
@@ -77,6 +78,19 @@ class ReportController extends Controller
         return response()->json(['message' =>'Error']);
     }
 
+    //update weekly report
+     public function updateWeeklyReport(Request $request, $id){
+        $report = WeeklyReport::find($id);
+        
+        if($report){
+            $report->update($request->all());
+            return response()->json([
+                'message' => 'Report Successfully Edited',
+                'data' => $report
+            ]);
+        }
+    }
+
     //create month report
     public function monthlyReport(Request $request){
         
@@ -106,6 +120,19 @@ class ReportController extends Controller
             return response()->json(['message' =>'Monthly Report Successfully Submitted']);
         }
             return response()->json(['message' =>'Error']);
+    }
+
+    //update daily report
+    public function updateMonthlyReport(Request $request, $id){
+        $report = MonthlyReport::find($id);
+        
+        if($report){
+            $report->update($request->all());
+            return response()->json([
+                'message' => 'Report Successfully Edited',
+                'data' => $report
+            ]);
+        }
     }
 
     //create yearly report
