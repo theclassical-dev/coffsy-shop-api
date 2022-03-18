@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DailyReport extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['delivered','cash','transfer','total','submittedDate'];
+
 }
