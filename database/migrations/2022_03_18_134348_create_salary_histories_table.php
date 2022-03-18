@@ -15,7 +15,7 @@ class CreateSalaryHistoriesTable extends Migration
     {
         Schema::create('salary_histories', function (Blueprint $table) {
             $table->id();
-            $tabel->string('name');
+            $table->string('name');
             $table->string('coff_id');
             $table->string('position');
             $table->string('amount');

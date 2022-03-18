@@ -7,6 +7,7 @@ use App\Http\Controllers\Users\CustomerController;
 use App\Http\Controllers\Users\OrderController;
 use App\Http\Controllers\Admin\BossController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\SalaryController;
 use App\Http\Controllers\Staff\MainController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Staff\ReportController;
@@ -61,15 +62,17 @@ Route::group(['middleware' => ['auth:staff'], 'prefix' => 'staff/v1', 'namespace
     Route::put('/update-staff-bank-details/{id}',[MainController::class, 'updateBankDetail']);
     Route::delete('/delete-staff-bank-details/{id}',[MainController::class, 'deleteBankDetail']);
     //
-    Route::post('/create-report',[MainController::class, 'report']);
-    Route::post('/create-weekly-report',[MainController::class, 'weeklyReport']);
-    Route::post('/create-monthly-report',[MainController::class, 'monthlyReport']);
-    Route::post('/create-yearly-report',[MainController::class, 'yearlyReport']);
+    Route::post('/create-report',[ReportController::class, 'report']);
+    Route::post('/create-weekly-report',[ReportController::class, 'weeklyReport']);
+    Route::post('/create-monthly-report',[ReportController::class, 'monthlyReport']);
+    Route::post('/create-yearly-report',[ReportController::class, 'yearlyReport']);
     //
-    Route::put('/update-report/{id}',[MainController::class, 'updateReport']);
-    Route::put('/update-weekly-report/{id}',[MainController::class, 'updateWeeklyReport']);
-    Route::put('/update-monthly-report/{id}',[MainController::class, 'updateMonthlyReport']);
-
+    Route::put('/update-report/{id}',[ReportController::class, 'updateReport']);
+    Route::put('/update-weekly-report/{id}',[ReportController::class, 'updateWeeklyReport']);
+    Route::put('/update-monthly-report/{id}',[ReportController::class, 'updateMonthlyReport']);
+    
+    //
+    Route::post('/add-staff-salary-record',[MainController::class, 'salary']);
     //
     Route::post('/logout',[ReportController::class, 'logout']);
     
@@ -77,7 +80,15 @@ Route::group(['middleware' => ['auth:staff'], 'prefix' => 'staff/v1', 'namespace
 });
 //admin routes
 Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin/v1', 'namespace' => 'Admin'], function () {
+    //
     Route::get('/test',[BossController::class, 'index']);
+
+    //
+    Route::get('/staff-salary-record',[SalaryController::class, 'index']);
+    Route::post('/add-staff-salary-record',[SalaryController::class, 'salary']);
+    Route::post('/upload-all-salary-record',[SalaryController::class, 'allPaid']);
+
+    //
     Route::post('/logout',[AdminController::class, 'logout']);
 
 });

@@ -15,7 +15,7 @@ class CreateSalariesTable extends Migration
     {
         Schema::create('salaries', function (Blueprint $table) {
             $table->id();
-            $tabel->string('name');
+            $table->string('name');
             $table->string('coff_id');
             $table->string('position');
             $table->string('amount');
