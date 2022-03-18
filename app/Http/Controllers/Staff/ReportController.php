@@ -39,13 +39,7 @@ class ReportController extends Controller
 
     }
 
-    public function WeeklyReport(Request $request){
-        
-        $request->validate([
-            'delivered' => 'required',
-            'cash' => 'required',
-            'trasfer' => 'required',
-        ]);
+    public function weeklyReport(Request $request){
 
         // sum of all the daily reports
         $d = DailyReport::sum('delivered');
@@ -66,5 +60,33 @@ class ReportController extends Controller
             return response()->json(['message' =>'Weekly Report Successfully Submitted']);
         }
         return response()->json(['message' =>'Error']);
+    }
+
+    public function monthlyReport(Request $request){
+        
+        $request->validate([
+            'month' => 'required|unique:monthly_reports, month',
+        ]);
+
+        // sum of all the daily reports
+        $d = WeeklyReport::sum('delivered');
+        $cash = WeeklyReport::sum('cash');
+        $transfer = WeeklyReport::sum('transfer');
+        $total = WeeklyReport::sum('total');
+
+
+        $report = MonthlyReport::create([
+            'delivered' => $d,
+            'cash' => $cash,
+            'trasfer' => $transfer,
+            'total' => $total,
+            'month' => $request->input('month'),
+            'submittedDate' => Carbon::now('WAT')->format('l jS \of F Y h:i:s')
+        ]);
+
+        if($report){
+            return response()->json(['message' =>'Monthly Report Successfully Submitted']);
+        }
+            return response()->json(['message' =>'Error']);
     }
 }
