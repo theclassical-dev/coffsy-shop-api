@@ -40,6 +40,18 @@ class ReportController extends Controller
 
     }
 
+    //update daily report
+    public function updateReport(Request $request, $id){
+        $report = DailyReport::find($id);
+        if($report){
+            $report->update($request->all());
+            return response()->json([
+                'message' => 'Report Successfully Edited',
+                'data' => $report
+            ]);
+        }
+    }
+
     //create weeklyReport
     public function weeklyReport(Request $request){
 
@@ -97,7 +109,7 @@ class ReportController extends Controller
     }
 
     //create yearly report
-    public function YearlyReport(Request $request){
+    public function yearlyReport(Request $request){
         
         $request->validate([
             'year' => 'required|unique:yearly_reports, month',

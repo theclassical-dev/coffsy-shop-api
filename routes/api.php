@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BossController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Staff\MainController;
 use App\Http\Controllers\Staff\StaffController;
+use App\Http\Controllers\Staff\ReportController;
 use App\Http\Controllers\PublicController;
 
 
@@ -59,8 +60,13 @@ Route::group(['middleware' => ['auth:staff'], 'prefix' => 'staff/v1', 'namespace
     Route::post('/add-staff-bank-details',[MainController::class, 'bankDetail']);
     Route::put('/update-staff-bank-details/{id}',[MainController::class, 'updateBankDetail']);
     Route::delete('/delete-staff-bank-details/{id}',[MainController::class, 'deleteBankDetail']);
-
-    Route::post('/logout',[StaffController::class, 'logout']);
+    //
+    Route::post('/create-report',[MainController::class, 'report']);
+    Route::post('/create-weekly-report',[MainController::class, 'weeklyReport']);
+    Route::post('/create-monthly-report',[MainController::class, 'monthlyReport']);
+    Route::post('/create-yearly-report',[MainController::class, 'yearlyReport']);
+    //
+    Route::post('/logout',[ReportController::class, 'logout']);
     
     
 });
