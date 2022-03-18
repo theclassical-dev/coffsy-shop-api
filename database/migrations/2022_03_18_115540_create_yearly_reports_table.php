@@ -15,6 +15,12 @@ class CreateYearlyReportsTable extends Migration
     {
         Schema::create('yearly_reports', function (Blueprint $table) {
             $table->id();
+            $table->string('delivered');
+            $table->string('cash');
+            $table->string('transfer');
+            $table->string('total');
+            $table->string('year');
+            $table->string('submittedDate');
             $table->timestamps();
         });
     }

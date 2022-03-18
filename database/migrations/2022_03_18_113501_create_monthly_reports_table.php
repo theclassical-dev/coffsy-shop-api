@@ -15,6 +15,12 @@ class CreateMonthlyReportsTable extends Migration
     {
         Schema::create('monthly_reports', function (Blueprint $table) {
             $table->id();
+            $table->string('delivered');
+            $table->string('cash');
+            $table->string('transfer');
+            $table->string('total');
+            $table->string('month');
+            $table->string('submittedDate');
             $table->timestamps();
         });
     }
