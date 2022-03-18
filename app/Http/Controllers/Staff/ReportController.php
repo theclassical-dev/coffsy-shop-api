@@ -13,6 +13,7 @@ use Carbon\Carbon;
 
 class ReportController extends Controller
 {
+    //create daily report
     public function report(Request $request){
         
         $request->validate([
@@ -39,6 +40,7 @@ class ReportController extends Controller
 
     }
 
+    //create weeklyReport
     public function weeklyReport(Request $request){
 
         // sum of all the daily reports
@@ -57,11 +59,13 @@ class ReportController extends Controller
         ]);
 
         if($report){
+            DailyReport::truncate();
             return response()->json(['message' =>'Weekly Report Successfully Submitted']);
         }
         return response()->json(['message' =>'Error']);
     }
 
+    //create month report
     public function monthlyReport(Request $request){
         
         $request->validate([
@@ -85,11 +89,14 @@ class ReportController extends Controller
         ]);
 
         if($report){
+
+            WeeklyReport::truncate();
             return response()->json(['message' =>'Monthly Report Successfully Submitted']);
         }
             return response()->json(['message' =>'Error']);
     }
 
+    //create yearly report
     public function YearlyReport(Request $request){
         
         $request->validate([
@@ -113,6 +120,8 @@ class ReportController extends Controller
         ]);
 
         if($report){
+
+            MonthlyReport::truncate();
             return response()->json(['message' =>'Yearly Report Successfully Submitted']);
         }
             return response()->json(['message' =>'Error']);
