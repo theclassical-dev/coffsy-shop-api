@@ -59,11 +59,36 @@ class SalaryController extends Controller
 
         if($history){
             return response()->json([
-                'message' => 'Record Successfully Uploaded',
+                'message' => 'Records Successfully Uploaded',
             ]);
         }
             return response()->json([
                 'message' => 'Error',
             ]);
+    }
+
+    public function paid($id){
+
+        $request->validate([
+            'month' => 'required'
+        ]);
+
+        $s = Salary::find($id);
+
+        if($s){
+
+            SalaryHistory::create([
+            'name' => $s->name,
+            'coff_id' => $s->coff_id,
+            'position' => $s->position,
+            'amount' => $s->amount,
+            'status' => 'Paid',
+            'month' => $request->input('month'),
+            'date' => Carbon::now('WAT')->format('l jS \of F Y h:i:s')
+            ]);
+
+            return response()->json(['message' => 'Record successfully Uploaded']);
+        }
+            return response()->json(['message' => 'Error',]);
     }
 }
