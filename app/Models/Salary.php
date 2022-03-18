@@ -9,5 +9,5 @@ class Salary extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'coff_id', 'position', 'amount', 'status', 'month'];
+    protected $fillable = ['name', 'coff_id', 'position', 'amount', 'status'];
 }

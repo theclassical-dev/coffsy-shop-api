@@ -19,8 +19,7 @@ class CreateSalariesTable extends Migration
             $table->string('coff_id');
             $table->string('position');
             $table->string('amount');
-            $table->string('status');
-            $table->string('month');
+            $table->string('status')->default('unpaid');
             $table->timestamps();
         });
     }
