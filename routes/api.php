@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BossController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Staff\MainController;
 use App\Http\Controllers\Staff\StaffController;
+use App\Http\Controllers\PublicController;
 
 
 /*
@@ -26,7 +27,7 @@ use App\Http\Controllers\Staff\StaffController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/admin/register', [AdminController::class, 'register']);
 Route::post('/staff/register', [StaffController::class, 'register']);
-
+Route::get('/getAllTea', [PublicController::class, 'getAllTea']);
 // login routes
 Route::post('/admin/login', [AdminController::class, 'login']);
 Route::post('/login', [AuthController::class, 'login']);
