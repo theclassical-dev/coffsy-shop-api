@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\DailyReport;
 use App\Models\WeeklyReport;
 use App\Models\MonthlyReport;
+use App\Models\YearlyReport;
 use Carbon\Carbon;
 
 class ReportController extends Controller
@@ -39,6 +40,17 @@ class ReportController extends Controller
     }
     public function monthly(){
         $report = MonthlyReport::all();
+        if($report){
+
+            return response()->json(['data' => $report,]);
+        }
+
+        return response()->json(['message' => 'No Report is found']);
+        
+       
+    }
+    public function yearly(){
+        $report = YearlyReport::all();
         if($report){
 
             return response()->json(['data' => $report,]);
@@ -115,7 +127,7 @@ class ReportController extends Controller
     }
 
     //update weekly report
-     public function updateWeeklyReport(Request $request, $id){
+    public function updateWeeklyReport(Request $request, $id){
         $report = WeeklyReport::find($id);
         
         if($report){
@@ -131,7 +143,7 @@ class ReportController extends Controller
     public function monthlyReport(Request $request){
         
         $request->validate([
-            'month' => 'required|unique:monthly_reports, month',
+            'month' => 'required|unique:monthly_reports,month',
         ]);
 
         // sum of all the daily reports
@@ -175,7 +187,7 @@ class ReportController extends Controller
     public function yearlyReport(Request $request){
         
         $request->validate([
-            'year' => 'required|unique:yearly_reports, month',
+            'year' => 'required|unique:yearly_reports,year',
         ]);
 
         // sum of all the daily reports
