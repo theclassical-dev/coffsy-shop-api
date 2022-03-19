@@ -16,8 +16,8 @@ class SalaryController extends Controller
     //
     public function salary(Request $request){
          $request->validate([
-             'name' => 'required|unique:salaries, name',
-             'coff_id' => 'required|unique:salaries, coff_id',
+             'name' => 'required|unique:salaries,name',
+             'coff_id' => 'required|unique:salaries,coff_id',
              'position' => 'required',
              'amount' => 'required',
          ]);

@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Staff;
+use App\Models\Salary;
 use App\Models\Tea;
 use App\Models\BankDetail;
 use Carbon\Carbon;
@@ -136,7 +137,7 @@ class MainController extends Controller
     public function bankDetail(Request $request){
         $request->validate([
             'coff_id' => 'required|unique:bank_details,coff_id',
-            'name' => 'required|string|unique:bank_details',
+            'name' => 'required|string|unique:bank_detProvided Details Not Foundails',
             'acct_name' => 'required|string|unique:bank_details',
             'acct_number' => 'required|integer|unique:bank_details',
             'bank' => 'required',
@@ -144,10 +145,15 @@ class MainController extends Controller
         ]);
 
         //check for coff_id && name
-
+        $name = Staff::where('name', $request->name)->first();
+        if(!$name){
+            return response()->json(['message' => 'Provided Details Not Found (Staff Name).']);
+            exit();
+        }
+        //
         $staff = Staff::where('coff_id', $request->coff_id)->first();
-        if(!$staff || !$staff->name){
-            return response()->json(['message' => 'Staff ID No. or Name Provided Not Found']);
+        if(!$staff){
+            return response()->json(['message' => 'Provided Details Not Found (Staff ID).']);
             exit();
         }
 
@@ -215,12 +221,32 @@ class MainController extends Controller
     //create
     public function salary(Request $request){
         $request->validate([
-            'name' => 'required|unique:salaries, name',
-            'coff_id' => 'required|unique:salaries, coff_id',
+            'name' => 'required|unique:salaries,name',
+            'coff_id' => 'required|unique:salaries,coff_id',
             'position' => 'required',
             'amount' => 'required',
         ]);
 
+        // check if the staff details is available or not
+        $name = Staff::where('name', $request->name)->first();
+        if(!$name){
+            return response()->json(['message' => 'Provided Details Not Found (Staff Name).']);
+            exit();
+        }
+        //
+        $staff = Staff::where('coff_id', $request->coff_id)->first();
+        if(!$staff){
+            return response()->json(['message' => 'Provided Details Not Found (Staff ID).']);
+            exit();
+        }
+        //
+        $position = Staff::where('position', $request->position)->first();
+        if(!$position){
+            return response()->json(['message' => 'Provided Details Not Found (Staff Position).']);
+            exit();
+        }
+        
+        //
         $salary = Salary::create([
             'name' => $request->input('name'),
             'coff_id' => $request->input('coff_id'),
