@@ -13,13 +13,49 @@ use Carbon\Carbon;
 
 class ReportController extends Controller
 {
+    // get all records daily, weekly & monthly
+    public function index(){
+        $report = DailyReport::all();
+
+        if(!$report->isEmpty()){
+
+            return response()->json(['data' => $report,]);
+        }
+
+        return response()->json(['message' => 'No Report is found']);
+        
+       
+    }
+    public function weekly(){
+        $report = WeeklyReport::all();
+        if(!$report->isEmpty()){
+
+            return response()->json(['data' => $report,]);
+        }
+
+        return response()->json(['message' => 'No Report is found']);
+        
+       
+    }
+    public function monthly(){
+        $report = MonthlyReport::all();
+        if($report){
+
+            return response()->json(['data' => $report,]);
+        }
+
+        return response()->json(['message' => 'No Report is found']);
+        
+       
+    }
+
     //create daily report
     public function report(Request $request){
         
         $request->validate([
             'delivered' => 'required',
             'cash' => 'required',
-            'trasfer' => 'required',
+            'transfer' => 'required',
         ]);
 
         // cash + transfer = total
@@ -28,7 +64,7 @@ class ReportController extends Controller
         $report = DailyReport::create([
             'delivered' => $request->input('delivered'),
             'cash' => $request->input('cash'),
-            'trasfer' => $request->input('trasfer'),
+            'transfer' => $request->input('transfer'),
             'total' => $total,
             'submittedDate' => Carbon::now('WAT')->format('l jS \of F Y h:i:s')
         ]);

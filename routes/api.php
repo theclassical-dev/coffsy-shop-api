@@ -72,6 +72,11 @@ Route::group(['middleware' => ['auth:staff'], 'prefix' => 'staff/v1', 'namespace
     Route::put('/update-monthly-report/{id}',[ReportController::class, 'updateMonthlyReport']);
     
     //
+    Route::get('/daily-report',[ReportController::class, 'index']);
+    Route::get('/weekly-report',[ReportController::class, 'weekly']);
+    Route::get('/monthly-report',[ReportController::class, 'monthly']);
+
+    //
     Route::post('/add-staff-salary-record',[MainController::class, 'salary']);
     //
     Route::post('/logout',[ReportController::class, 'logout']);
