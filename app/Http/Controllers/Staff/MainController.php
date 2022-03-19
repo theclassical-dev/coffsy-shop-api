@@ -137,7 +137,7 @@ class MainController extends Controller
     public function bankDetail(Request $request){
         $request->validate([
             'coff_id' => 'required|unique:bank_details,coff_id',
-            'name' => 'required|string|unique:bank_detProvided Details Not Foundails',
+            'name' => 'required|string|unique:bank_details',
             'acct_name' => 'required|string|unique:bank_details',
             'acct_number' => 'required|integer|unique:bank_details',
             'bank' => 'required',
@@ -245,7 +245,7 @@ class MainController extends Controller
             return response()->json(['message' => 'Provided Details Not Found (Staff Position).']);
             exit();
         }
-        
+
         //
         $salary = Salary::create([
             'name' => $request->input('name'),

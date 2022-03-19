@@ -46,26 +46,33 @@ Route::group(['middleware' => ['auth:user'], 'prefix' => 'user/v1', 'namespace' 
 });
 //staff routes
 Route::group(['middleware' => ['auth:staff'], 'prefix' => 'staff/v1', 'namespace' => 'Staff'], function () {
+    
     //
     Route::get('/all-orders',[MainController::class, 'allOrders']);
+
     //
     Route::put('/confirm-payment/{id}',[MainController::class, 'confirmPayment']);
     Route::put('/order-status/{id}',[MainController::class, 'orderStatus']);
+
     //
     Route::get('/test',[MainController::class, 'index']);
+
     //
     Route::post('/add-tea',[MainController::class, 'createTeaType']);
     Route::put('/update-tea/{id}',[MainController::class, 'updateTeaType']);
     Route::delete('/delete-tea/{id}',[MainController::class, 'deleteTeaType']);
+
     //
     Route::post('/add-staff-bank-details',[MainController::class, 'bankDetail']);
     Route::put('/update-staff-bank-details/{id}',[MainController::class, 'updateBankDetail']);
     Route::delete('/delete-staff-bank-details/{id}',[MainController::class, 'deleteBankDetail']);
+
     //
     Route::post('/create-report',[ReportController::class, 'report']);
     Route::post('/create-weekly-report',[ReportController::class, 'weeklyReport']);
     Route::post('/create-monthly-report',[ReportController::class, 'monthlyReport']);
     Route::post('/create-yearly-report',[ReportController::class, 'yearlyReport']);
+
     //
     Route::put('/update-report/{id}',[ReportController::class, 'updateReport']);
     Route::put('/update-weekly-report/{id}',[ReportController::class, 'updateWeeklyReport']);
