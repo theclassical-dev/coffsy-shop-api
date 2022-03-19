@@ -70,7 +70,7 @@ class ReportController extends Controller
         ]);
 
         if($report){
-            return response()->json(['message' =>'Report Successfully Submmitted']);
+            return response()->json(['message' =>'Report Successfully Submmitted', 'data' => $report]);
         }
         return response()->json(['message' =>'Error']);
 
@@ -102,14 +102,14 @@ class ReportController extends Controller
         $report = WeeklyReport::create([
             'delivered' => $d,
             'cash' => $cash,
-            'trasfer' => $transfer,
+            'transfer' => $transfer,
             'total' => $total,
             'submittedDate' => Carbon::now('WAT')->format('l jS \of F Y h:i:s')
         ]);
 
         if($report){
             DailyReport::truncate();
-            return response()->json(['message' =>'Weekly Report Successfully Submitted']);
+            return response()->json(['message' =>'Weekly Report Successfully Submitted', 'data' => $report]);
         }
         return response()->json(['message' =>'Error']);
     }
@@ -144,7 +144,7 @@ class ReportController extends Controller
         $report = MonthlyReport::create([
             'delivered' => $d,
             'cash' => $cash,
-            'trasfer' => $transfer,
+            'transfer' => $transfer,
             'total' => $total,
             'month' => $request->input('month'),
             'submittedDate' => Carbon::now('WAT')->format('l jS \of F Y h:i:s')
@@ -188,7 +188,7 @@ class ReportController extends Controller
         $report = YearlyReport::create([
             'delivered' => $d,
             'cash' => $cash,
-            'trasfer' => $transfer,
+            'transfer' => $transfer,
             'total' => $total,
             'year' => $request->input('year'),
             'submittedDate' => Carbon::now('WAT')->format('l jS \of F Y h:i:s')
