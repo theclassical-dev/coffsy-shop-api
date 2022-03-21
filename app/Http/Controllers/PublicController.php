@@ -8,7 +8,9 @@ use App\Models\Tea;
 class PublicController extends Controller
 {
     public function getAllTea(){
+        
         $tea = Tea::all();
+
         if(!$tea->isEmpty()){
             return response()->json([
                 'data' => $tea
