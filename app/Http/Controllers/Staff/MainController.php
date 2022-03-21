@@ -114,7 +114,7 @@ class MainController extends Controller
 
             $tea->update($ind);
 
-            return response()->json(['message' => 'Successfully Updated']);
+            return response()->json(['message' => 'Successfully Updated', 'data' => $tea]);
         }
 
         return response()->json(['message' => 'Record Not Found']);

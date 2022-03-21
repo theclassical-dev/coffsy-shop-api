@@ -37,4 +37,30 @@ class BossController extends Controller
 
             return response()->json(['message' => 'Error']);
     }
+
+    public function updatePromoCode(Request $request, $id){
+
+        $promo = PromoCode::find($id);
+        if($promo){
+
+            $promo->update($request->all());
+            return response()->json(['message' => 'Promo updated successfully']);
+        }
+
+            return response()->json(['message' => 'Error']);
+
+    }
+
+    public function deletePromo($id){
+
+        $promo = Promo::find($id);
+        if($promo){
+
+            $promo->delete($promo);
+            return response()->json(['message' => 'Record Successfully Deleted', 'data' => $promo]);
+        }
+
+            return response()->json(['message' => 'Error']);
+
+    }
 }

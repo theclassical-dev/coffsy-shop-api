@@ -98,6 +98,7 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin/v1', 'namespace
 
     //
     Route::post('/promo',[BossController::class, 'promoCode']);
+    Route::put('/update-promo/{id}',[BossController::class, 'UpdatePromoCode']);
     //
     Route::get('/staff-salary-record',[SalaryController::class, 'index']);
     Route::post('/add-staff-salary-record',[SalaryController::class, 'salary']);
