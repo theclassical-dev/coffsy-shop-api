@@ -97,11 +97,14 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin/v1', 'namespace
     Route::get('/test',[BossController::class, 'index']);
 
     //
+    Route::post('/promo',[BossController::class, 'promoCode']);
+    //
     Route::get('/staff-salary-record',[SalaryController::class, 'index']);
     Route::post('/add-staff-salary-record',[SalaryController::class, 'salary']);
     Route::post('/upload-all-salary-record',[SalaryController::class, 'allPaid']);
 
     //
     Route::post('/logout',[AdminController::class, 'logout']);
+
 
 });
